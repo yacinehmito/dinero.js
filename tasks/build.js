@@ -9,7 +9,7 @@ const pluginSetups = {
     babel({
       presets: [
         [
-          'env',
+          '@babel/preset-env',
           {
             modules: false,
             targets: {
@@ -19,7 +19,6 @@ const pluginSetups = {
         ]
       ],
       exclude: 'node_modules/**',
-      plugins: ['external-helpers'],
       babelrc: false
     })
   ],
