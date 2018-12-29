@@ -39,12 +39,12 @@ const pluginSetups = {
 }
 const components = [
   {
-    path: 'src/dinero.js',
+    path: 'lib/dinero.js',
     plugins: [...pluginSetups.default],
     name: ''
   },
   {
-    path: 'src/dinero-polyfilled.js',
+    path: 'lib/dinero-polyfilled.js',
     plugins: [...pluginSetups.default, ...pluginSetups.polyfill],
     name: '.polyfilled'
   }

@@ -13,37 +13,13 @@ import { isUndefined } from './services/helpers'
 
 const calculator = Calculator()
 
-/**
- * A Dinero object is an immutable data structure representing a specific monetary value.
- * It comes with methods for creating, parsing, manipulating, testing, transforming and formatting them.
- *
- * A Dinero object has:
- *
- * * An `amount`, expressed in minor currency units.
- * * A `currency`, expressed as an {@link https://en.wikipedia.org/wiki/ISO_4217#Active_codes ISO 4217 currency code}.
- * * A `precision`, expressed as an integer, to represent the number of decimal places in the `amount`.
- *   This is helpful when you want to represent fractional minor currency units (e.g.: $10.4545).
- *   You can also use it to represent a currency with a different [exponent](https://en.wikipedia.org/wiki/ISO_4217#Treatment_of_minor_currency_units_.28the_.22exponent.22.29) than `2` (e.g.: Iraqi dinar with 1000 fils in 1 dinar (exponent of `3`), Japanese yen with no sub-units (exponent of `0`)).
- * * An optional `locale` property that affects how output strings are formatted.
- *
- * Here's an overview of the public API:
- *
- * * **Access:** {@link module:Dinero~getAmount getAmount}, {@link module:Dinero~getCurrency getCurrency}, {@link module:Dinero~getLocale getLocale} and {@link module:Dinero~getPrecision getPrecision}.
- * * **Manipulation:** {@link module:Dinero~add add}, {@link module:Dinero~subtract subtract}, {@link module:Dinero~multiply multiply}, {@link module:Dinero~divide divide}, {@link module:Dinero~percentage percentage}, {@link module:Dinero~allocate allocate} and {@link module:Dinero~convert convert}.
- * * **Testing:** {@link module:Dinero~equalsTo equalsTo}, {@link module:Dinero~lessThan lessThan}, {@link module:Dinero~lessThanOrEqual lessThanOrEqual}, {@link module:Dinero~greaterThan greaterThan}, {@link module:Dinero~greaterThanOrEqual greaterThanOrEqual}, {@link module:Dinero~isZero isZero}, {@link module:Dinero~isPositive isPositive}, {@link module:Dinero~isNegative isNegative}, {@link module:Dinero~hasSubUnits hasSubUnits}, {@link module:Dinero~hasSameCurrency hasSameCurrency} and {@link module:Dinero~hasSameAmount hasSameAmount}.
- * * **Configuration:** {@link module:Dinero~setLocale setLocale}.
- * * **Conversion & formatting:** {@link module:Dinero~toFormat toFormat}, {@link module:Dinero~toUnit toUnit}, {@link module:Dinero~toRoundedUnit toRoundedUnit}, {@link module:Dinero~toObject toObject}, {@link module:Dinero~convertPrecision convertPrecision} and {@link module:Dinero.normalizePrecision normalizePrecision}.
- *
- * @module Dinero
- * @param  {Number} [options.amount=0] - The amount in minor currency units (as an integer).
- * @param  {String} [options.currency='USD'] - An ISO 4217 currency code.
- * @param  {String} [options.precision=2] - The number of decimal places to represent.
- *
- * @throws {TypeError} If `amount` or `precision` is invalid.
- *
- * @return {Object}
- */
-const Dinero = options => {
+type DineroOptions = {
+  amount?: number
+  currency?: string
+  precision?: number
+}
+
+const DineroFactory = (options?: DineroOptions) => {
   const { amount, currency, precision } = Object.assign(
     {},
     {
@@ -460,7 +436,7 @@ const Dinero = options => {
      *
      * @return {Promise}
      */
-    convert(currency, options) {
+    convert(currency, options?: any) {
       options = Object.assign({}, globalExchangeRatesApi, options)
       return CurrencyConverter(options)
         .getExchangeRate(this.getCurrency(), currency)
@@ -880,4 +856,36 @@ const Dinero = options => {
   }
 }
 
-export default Object.assign(Dinero, Defaults, Globals, Static)
+/**
+ * A Dinero object is an immutable data structure representing a specific monetary value.
+ * It comes with methods for creating, parsing, manipulating, testing, transforming and formatting them.
+ *
+ * A Dinero object has:
+ *
+ * * An `amount`, expressed in minor currency units.
+ * * A `currency`, expressed as an {@link https://en.wikipedia.org/wiki/ISO_4217#Active_codes ISO 4217 currency code}.
+ * * A `precision`, expressed as an integer, to represent the number of decimal places in the `amount`.
+ *   This is helpful when you want to represent fractional minor currency units (e.g.: $10.4545).
+ *   You can also use it to represent a currency with a different [exponent](https://en.wikipedia.org/wiki/ISO_4217#Treatment_of_minor_currency_units_.28the_.22exponent.22.29) than `2` (e.g.: Iraqi dinar with 1000 fils in 1 dinar (exponent of `3`), Japanese yen with no sub-units (exponent of `0`)).
+ * * An optional `locale` property that affects how output strings are formatted.
+ *
+ * Here's an overview of the public API:
+ *
+ * * **Access:** {@link module:Dinero~getAmount getAmount}, {@link module:Dinero~getCurrency getCurrency}, {@link module:Dinero~getLocale getLocale} and {@link module:Dinero~getPrecision getPrecision}.
+ * * **Manipulation:** {@link module:Dinero~add add}, {@link module:Dinero~subtract subtract}, {@link module:Dinero~multiply multiply}, {@link module:Dinero~divide divide}, {@link module:Dinero~percentage percentage}, {@link module:Dinero~allocate allocate} and {@link module:Dinero~convert convert}.
+ * * **Testing:** {@link module:Dinero~equalsTo equalsTo}, {@link module:Dinero~lessThan lessThan}, {@link module:Dinero~lessThanOrEqual lessThanOrEqual}, {@link module:Dinero~greaterThan greaterThan}, {@link module:Dinero~greaterThanOrEqual greaterThanOrEqual}, {@link module:Dinero~isZero isZero}, {@link module:Dinero~isPositive isPositive}, {@link module:Dinero~isNegative isNegative}, {@link module:Dinero~hasSubUnits hasSubUnits}, {@link module:Dinero~hasSameCurrency hasSameCurrency} and {@link module:Dinero~hasSameAmount hasSameAmount}.
+ * * **Configuration:** {@link module:Dinero~setLocale setLocale}.
+ * * **Conversion & formatting:** {@link module:Dinero~toFormat toFormat}, {@link module:Dinero~toUnit toUnit}, {@link module:Dinero~toRoundedUnit toRoundedUnit}, {@link module:Dinero~toObject toObject}, {@link module:Dinero~convertPrecision convertPrecision} and {@link module:Dinero.normalizePrecision normalizePrecision}.
+ *
+ * @module Dinero
+ * @param  {Number} [options.amount=0] - The amount in minor currency units (as an integer).
+ * @param  {String} [options.currency='USD'] - An ISO 4217 currency code.
+ * @param  {String} [options.precision=2] - The number of decimal places to represent.
+ *
+ * @throws {TypeError} If `amount` or `precision` is invalid.
+ *
+ * @return {Object}
+ */
+const Dinero = Object.assign(DineroFactory, Defaults, Globals, Static)
+
+export default Dinero

@@ -1,5 +1,5 @@
 import Dinero from '../../src/dinero'
-import jsc from 'jsverify'
+import * as jsc from 'jsverify'
 
 describe('Dinero', () => {
   describe('#add', () => {

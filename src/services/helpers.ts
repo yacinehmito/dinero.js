@@ -7,7 +7,7 @@
  * @return {Boolean}
  */
 export function isNumeric(value) {
-  return !isNaN(parseInt(value)) && isFinite(value)
+  return !isNaN(parseInt(value, 10)) && isFinite(value)
 }
 
 /**
@@ -83,6 +83,10 @@ export function isHalf(number) {
   return Math.abs(number) % 1 === 0.5
 }
 
+type GetJSONOptions = {
+  headers?: { [header: string]: string }
+}
+
 /**
  * Fetches a JSON resource.
  * @ignore
@@ -95,14 +99,14 @@ export function isHalf(number) {
  *
  * @return {JSON}
  */
-export function getJSON(url, options = {}) {
+export function getJSON(url, options: GetJSONOptions = {}) {
   return new Promise((resolve, reject) => {
     const request = Object.assign(new XMLHttpRequest(), {
       onreadystatechange() {
         if (request.readyState === 4) {
-          if (request.status >= 200 && request.status < 400)
+          if (request.status >= 200 && request.status < 400) {
             resolve(JSON.parse(request.responseText))
-          else reject(new Error(request.statusText))
+          } else reject(new Error(request.statusText))
         }
       },
       onerror() {

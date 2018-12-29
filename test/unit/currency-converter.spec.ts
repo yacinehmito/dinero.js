@@ -1,11 +1,13 @@
 import CurrencyConverter from '../../src/services/currency-converter'
-import { getJSON } from '../../src/services/helpers'
+import { getJSON as getJSON_unmocked } from '../../src/services/helpers'
 
 jest.mock('../../src/services/helpers', () =>
   Object.assign(require.requireActual('../../src/services/helpers'), {
     getJSON: jest.fn()
   })
 )
+
+const getJSON = getJSON_unmocked as jest.Mock
 
 const options = {
   endpoint: 'https://yourexchangerates.api/latest?base={{from}}',

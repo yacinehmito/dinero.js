@@ -1,11 +1,13 @@
 import Dinero from '../../src/dinero'
-import { getJSON } from '../../src/services/helpers'
+import { getJSON as getJSON_unmocked } from '../../src/services/helpers'
 
 jest.mock('../../src/services/helpers', () =>
   Object.assign(require.requireActual('../../src/services/helpers'), {
     getJSON: jest.fn()
   })
 )
+
+const getJSON = getJSON_unmocked as jest.Mock
 
 describe('Dinero', () => {
   describe('instantiation', () => {
@@ -17,12 +19,14 @@ describe('Dinero', () => {
       expect(() => Dinero({ amount: 0.1 })).toThrow()
     })
     test('should throw when amount is a string', () => {
+      // @ts-ignore
       expect(() => Dinero({ amount: '100' })).toThrow()
     })
     test('should throw when precision is a float', () => {
       expect(() => Dinero({ precision: 0.5 })).toThrow()
     })
     test('should throw when precision is a string', () => {
+      // @ts-ignore
       expect(() => Dinero({ precision: '3' })).toThrow()
     })
   })

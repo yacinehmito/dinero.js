@@ -110,7 +110,7 @@ describe('Helpers', () => {
         status: 200,
         statusText: ''
       }
-      window.XMLHttpRequest = jest.fn(() => mockXHR)
+      ;(window as any).XMLHttpRequest = jest.fn(() => mockXHR)
       request = Helpers.getJSON('http://my.api')
     })
     test('should return a resolved promise with a response text', async () => {

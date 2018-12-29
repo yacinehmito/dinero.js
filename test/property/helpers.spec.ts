@@ -1,5 +1,5 @@
 import * as Helpers from '../../src/services/helpers'
-import jsc from 'jsverify'
+import * as jsc from 'jsverify'
 
 describe('Helpers', () => {
   describe('#isPercentage', () => {
