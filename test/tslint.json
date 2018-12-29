@@ -1,0 +1,7 @@
+{
+  "extends": "../tslint.json",
+  "rules": {
+    "deprecation": false,
+    "no-floating-promises": false
+  }
+}
