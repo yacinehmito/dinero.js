@@ -2,33 +2,37 @@
   "name": "dinero.js",
   "version": "1.4.0",
   "description": "An immutable library to create, calculate and format monetary values.",
-  "author": "Sarah Dayan",
   "keywords": [
-    "money",
-    "monetary",
     "amount",
-    "immutable"
+    "immutable",
+    "monetary",
+    "money"
   ],
   "homepage": "https://sarahdayan.github.io/dinero.js",
   "repository": "https://github.com/sarahdayan/dinero.js",
+  "license": "MIT",
+  "author": "Sarah Dayan",
+  "files": [
+    "build",
+    "src"
+  ],
   "main": "build/cjs/dinero.js",
   "scripts": {
+    "build": "rm -rf build && node tasks/build.js",
     "precommit": "lint-staged",
     "cz": "git-cz",
+    "docs": "rm -rf docs && ./node_modules/.bin/jsdoc src/ -r -d ./docs -t ./node_modules/jsdoc-template -c jsdoc.json -R ./README.md -q title=Dinero.js",
     "format": "prettier --write 'src/**/*.js' 'test/**/*.js'",
     "lint": "eslint 'src/**/*.js' 'test/**/*.js'",
     "lint!": "npm run format && npm run lint",
+    "semantic-release": "semantic-release",
     "test": "jest --coverage",
-    "docs": "rm -rf docs && ./node_modules/.bin/jsdoc src/ -r -d ./docs -t ./node_modules/jsdoc-template -c jsdoc.json -R ./README.md -q title=Dinero.js",
-    "build": "rm -rf build && node tasks/build.js",
-    "travis-deploy-once": "travis-deploy-once",
-    "semantic-release": "semantic-release"
+    "travis-deploy-once": "travis-deploy-once"
   },
-  "lint-staged": {
-    "*.js": [
-      "npm run lint!",
-      "git add"
-    ]
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-conventional-changelog"
+    }
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -61,17 +65,13 @@
     "semantic-release": "^15.6.3",
     "travis-deploy-once": "^5.0.1"
   },
-  "config": {
-    "commitizen": {
-      "path": "node_modules/cz-conventional-changelog"
-    }
-  },
   "engines": {
     "node": "*"
   },
-  "files": [
-    "build",
-    "src"
-  ],
-  "license": "MIT"
+  "lint-staged": {
+    "*.js": [
+      "npm run lint!",
+      "git add"
+    ]
+  }
 }
