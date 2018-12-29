@@ -92,7 +92,7 @@ components.forEach(component => {
 const buildOutputs = (bundle, suffix = '') => {
   outputs.forEach(output => {
     bundle.write({
-      file: `build/${output.folder}/dinero${suffix}.js`,
+      file: `dist/${output.folder}/dinero${suffix}.js`,
       format: output.format,
       name: 'Dinero'
     })

@@ -13,12 +13,12 @@
   "license": "MIT",
   "author": "Sarah Dayan",
   "files": [
-    "build",
+    "dist",
     "src"
   ],
-  "main": "build/cjs/dinero.js",
+  "main": "dist/cjs/dinero.js",
   "scripts": {
-    "build": "rm -rf build && node tasks/build.js",
+    "build": "rm -rf dist && node tasks/build.js",
     "precommit": "lint-staged",
     "cz": "git-cz",
     "docs": "rm -rf docs && ./node_modules/.bin/jsdoc src/ -r -d ./docs -t ./node_modules/jsdoc-template -c jsdoc.json -R ./README.md -q title=Dinero.js",
